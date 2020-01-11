@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Document
+    body
+        h1 #{grg}
+        h6 #{cars}
+        table(class="striped responsive-table")        
+            thead
+                tr
+                    th Номер
+                    th Название
+                    th Цена
+                    th Цвет                
+            tbody
+                each car in cars
+                    tr
+                        td #{car["id"]} 
+                        td #{car['name']} 
+                        td #{car['price']} 
+                        td #{car['color']} 
+                
