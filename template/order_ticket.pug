@@ -1,0 +1,23 @@
+extends ../template/head.pug
+block header
+  include ../template/header.pug
+
+block content
+  h2 Ordering ticket
+  #{startPoints}
+  div
+    div
+      label(for="stPoint") Пункт отправления
+      select(name="stPoint")
+        each opt in data.startPoints
+          option(value=opt.ep_name) #{opt.ep_name}
+    div
+      label(for="endPoint") Пункт назначения
+      select(name="epPoint")
+        each opt in data.endPoints
+          option(value = opt.ep_name) #{opt.ep_name}
+    div
+      label(for="travelType") Способ передвижения
+      select(name="tType")
+        each opt in data.routeTypes
+          option(value = opt.rot_type) #{opt.rot_type}
