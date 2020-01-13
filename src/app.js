@@ -8,6 +8,7 @@ const { pugCompile } = require("../modules/pug");
 const RouteTypes = require("../modules/RouteTypes");
 const Routes = require("../modules/Routes");
 const EndPoints = require("../modules/EndPoints");
+const InitUsersEditor = require("../modules/editor_users/router");
 
 //app.use(express.json);
 
@@ -43,6 +44,8 @@ app.get("/order", async (req, res) => {
   );
   res.send(obj);
 });
+
+InitUsersEditor(app);
 
 app.listen(3000, () => {
   console.log("Started!");

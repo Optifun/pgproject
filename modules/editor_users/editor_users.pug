@@ -1,0 +1,41 @@
+include ../../template/head.pug
+include ../../template/header.pug
+nav(class="purple")
+  .nav-wrapper 
+    a(class="brand-logo left") Editor Users
+
+
+table
+  thead
+    tr
+      each col in ["Логин", "Пароль", "ФИО"]
+        th #{col}
+      th
+      th
+  tbody
+    each user in data
+      tr(id="id_"+user.id)
+        td
+          input(type="text", class="login", value=user.login)
+        td
+          input(type="text", class="password", value=user.password)
+        td
+          input(type="text", class="fio", value=user.fio)
+
+        td
+          button(class="waves-effect waves-light btn", onClick="Delete("+user.id+")") Удалить
+      tr(id="add")
+        td
+          input(type="text", class="login", value ="")
+        td
+          input(type="text", class="password", value ="")
+        td
+          input(type="text", class="fio", value ="")
+        td
+          button(class="waves-effect waves-light btn", onClick="Add()") Добавить
+
+
+
+include ../../template/foot.pug
+script
+  include scripts.js

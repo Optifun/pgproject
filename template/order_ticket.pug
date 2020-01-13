@@ -1,45 +1,51 @@
-extends ../template/head.pug
-block header
-  include ../template/header.pug
+include ./head.pug
+include ./header.pug
+nav(class="purple")
+  .nav-wrapper 
+    a(class="brand-logo left") Ordering ticket
 
-block content
-  h2 Ordering ticket
-  #{startPoints}
-  div
-    div
-      label(for="stPoint") Пункт отправления
-      select(name="stPoint")
-        option(value = "")
-        each opt in data.startPoints
-          option(value=opt.ep_name) #{opt.ep_name}
-    div
-      label(for="endPoint") Пункт назначения
-      select(name="epPoint")
-        option(value = "")
-        each opt in data.endPoints
-          option(value = opt.ep_name) #{opt.ep_name}
-    div
-      label(for="travelType") Способ передвижения
-      select(name="tType")
-        option(value = "")
-        each opt in data.routeTypes
-          option(value = opt.rot_type) #{opt.rot_type}
+div
+  .row(style="display: flex;align-items: center;")
 
-  div(class="route_table")
-    table
-      thead
-        tr
-          each col in ["Место отправления", "Мето назначения", "Дата отправления", "Дата прибытия", "Способ передвижения","Стоимость за пассажира"]
-            th #{col}
-          th Купить
-      tbody
-        each route in data.found
-          tr
-            td #{route.begin_place}
-            td #{route.end_place}
-            td #{route.start_time}
-            td #{route.arrive_time}
-            td #{route.route_type}
-            td #{route.route_cost}
-            td
-              button Buy
+    .col.s4
+      div
+        h5 Пункт отправления
+        select(name="stPoint", class="dropdown-trigger btn")
+          option(value = "")
+          each opt in data.startPoints
+            option(value=opt.ep_name) #{opt.ep_name}
+    .col.s4
+      div
+        h5 Пункт назначения
+        select(name="epPoint", class="dropdown-trigger btn")
+          option(value = "")
+          each opt in data.endPoints
+            option(value = opt.ep_name) #{opt.ep_name}
+    .col.s4
+      div
+        h5 Способ передвижения
+        select(name="tType", class="dropdown-trigger btn")
+          option(value = "")
+          each opt in data.routeTypes
+            option(value = opt.rot_type) #{opt.rot_type}
+
+
+table
+  thead
+    tr
+      each col in ["Место отправления", "Мето назначения", "Дата отправления", "Дата прибытия", "Способ передвижения","Стоимость за пассажира"]
+        th #{col}
+      th Купить
+  tbody
+    each route in data.found
+      tr
+        td #{route.begin_place}
+        td #{route.end_place}
+        td #{route.start_time}
+        td #{route.arrive_time}
+        td #{route.route_type}
+        td #{route.route_cost}
+        td
+          button(class="waves-effect waves-light btn") Buy
+
+include ./foot.pug
