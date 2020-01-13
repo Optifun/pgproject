@@ -1,5 +1,7 @@
+html,
 body {
   margin: 0;
+  height: 100%;
 }
 
 .page {
@@ -10,6 +12,29 @@ body {
   display: grid;
   grid-template-columns: 1fr 16fr 1fr;
   grid-template-rows: auto 1fr auto;
+}
+
+.route_table {
+  padding: 5px;
+}
+
+.route_table table {
+  align-self: stretch;
+  width: 100%;
+  align-items: center;
+  border: 1px solid black;
+  background: black;
+}
+
+.route_table thead {
+  text-align: center;
+  font-style: bold;
+  background-color: rgb(230, 230, 230);
+}
+.route_table td {
+  text-align: center;
+  font-style: bold;
+  background-color: white;
 }
 
 header {

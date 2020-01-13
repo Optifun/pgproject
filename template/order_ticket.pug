@@ -9,15 +9,37 @@ block content
     div
       label(for="stPoint") Пункт отправления
       select(name="stPoint")
+        option(value = "")
         each opt in data.startPoints
           option(value=opt.ep_name) #{opt.ep_name}
     div
       label(for="endPoint") Пункт назначения
       select(name="epPoint")
+        option(value = "")
         each opt in data.endPoints
           option(value = opt.ep_name) #{opt.ep_name}
     div
       label(for="travelType") Способ передвижения
       select(name="tType")
+        option(value = "")
         each opt in data.routeTypes
           option(value = opt.rot_type) #{opt.rot_type}
+
+  div(class="route_table")
+    table
+      thead
+        tr
+          each col in ["Место отправления", "Мето назначения", "Дата отправления", "Дата прибытия", "Способ передвижения","Стоимость за пассажира"]
+            th #{col}
+          th Купить
+      tbody
+        each route in data.found
+          tr
+            td #{route.begin_place}
+            td #{route.end_place}
+            td #{route.start_time}
+            td #{route.arrive_time}
+            td #{route.route_type}
+            td #{route.route_cost}
+            td
+              button Buy

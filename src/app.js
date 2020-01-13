@@ -6,7 +6,7 @@ const app = express();
 
 const { pugCompile } = require("../modules/pug");
 const RouteTypes = require("../modules/RouteTypes");
-const Routs = require("../modules/Routes");
+const Routes = require("../modules/Routes");
 const EndPoints = require("../modules/EndPoints");
 
 //app.use(express.json);
@@ -29,13 +29,15 @@ app.get("/order", async (req, res) => {
   let endPoints = await new EndPoints().loadData();
   let startPoints = endPoints;
 
+  let found = await new Routes().loadData();
   let obj = pugCompile(
     path.resolve(projectPath, "template", "order_ticket.pug"),
     {
       data: {
         startPoints,
         endPoints,
-        routeTypes
+        routeTypes,
+        found
       }
     }
   );

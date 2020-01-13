@@ -6,8 +6,8 @@ class Routes extends DB {
   }
   query = async args => {
     await this.connect();
-    let qstring = `SELECT * FROM public."route"`;
-    if (args.length > 0) {
+    let qstring = `SELECT * FROM named_route`;
+    if (args && args.length > 0) {
       let count = args.length;
       qstring += " WHERE ";
 
@@ -35,7 +35,7 @@ class Routes extends DB {
   };
 
   loadData = async args => {
-    const dbResponse = await this.query();
+    const dbResponse = await this.query(args);
     const routes = dbResponse.rows || null;
     return routes;
   };
