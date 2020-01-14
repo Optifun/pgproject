@@ -1,0 +1,62 @@
+include ../../template/head.pug
+include ../../template/header.pug
+nav(class="purple")
+  .nav-wrapper 
+    a(class="brand-logo left") Editor End Points
+
+.row(style="display: flex;")
+  .col.s6
+    table
+      thead
+        tr
+          th Название
+          th Тип транспорта
+          th 
+      tbody
+        if (data.transport)
+          each transport in data.transport
+            tr(id="id_"+transport.id)
+              td
+                input(type="text", class="name", value=transport.name)
+              td
+                select(name="tpType", class="dropdown-trigger btn", value=transport.type)
+                  each opt in data.types
+                    option(value=opt.name) #{opt.name}
+              td
+                button(class="waves-effect waves-light btn", onClick="Delete("+transport.id+")") Удалить
+
+        tr(id="add")
+          td
+            input(type="text", class="name", value ="")
+          td
+            input(type="text", class="tpType", value ="")
+          td
+            button(class="waves-effect waves-light btn", onClick="Add()") Добавить
+  .col.s2
+    div
+
+  .col.s4
+    table
+      thead
+        tr
+          th "Тип транспорта"
+          th 
+      tbody
+        each ttype in data.types
+          tr(id="id_"+ttype.id)
+            td
+              input(type="text", class="name", value=ttype.name)
+            td
+              button(class="waves-effect waves-light btn", onClick="Delete("+ttype.id+")") Удалить
+
+        tr(id="add")
+          td
+            input(type="text", class="name", value ="")
+          td
+            button(class="waves-effect waves-light btn", onClick="Add()") Добавить
+
+
+
+include ../../template/foot.pug
+script
+  include scripts.js

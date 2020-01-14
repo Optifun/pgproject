@@ -31,7 +31,7 @@ class EndPoints extends DB {
     await this.connect();
     if (point) {
       let qstring = `UPDATE public.points 
-      SET name=${usr.login}, 
+      SET name=${usr.login} 
       WHERE id=${parseInt(point.id)}`;
       return await this.client.query(qstring);
     }

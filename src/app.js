@@ -5,11 +5,13 @@ const projectPath = path.resolve(__dirname, "..");
 const app = express();
 
 const { pugCompile } = require("../modules/pug");
-const RouteTypes = require("../modules/RouteTypes");
 const Routes = require("../modules/Routes");
+
+const TransportTypes = require("../modules/editor_transport/TransportType");
 const EndPoints = require("../modules/editor_endpoints/EndPoints");
 const InitUsersEditor = require("../modules/editor_users/router");
 const InitEndPointsEditor = require("../modules/editor_endpoints/router");
+const InitTransportEditor = require("../modules/editor_transport/router");
 
 //app.use(express.json);
 
@@ -27,8 +29,8 @@ app.get("/", (req, res) => {
 
 //меню заказа билетов
 app.get("/order", async (req, res) => {
-  let routeTypes = await new RouteTypes().loadData();
-  let endPoints = await new EndPoints().loadData();
+  let routeTypes = await new TransportTypes().getAllItems();
+  let endPoints = await new EndPoints().getAllItems();
   let startPoints = endPoints;
 
   let found = await new Routes().loadData();
@@ -49,6 +51,7 @@ app.get("/order", async (req, res) => {
 //Инициализация роутеров
 InitUsersEditor(app);
 InitEndPointsEditor(app);
+InitTransportEditor(app);
 
 app.listen(3000, () => {
   console.log("Started!");
