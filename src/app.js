@@ -7,8 +7,9 @@ const app = express();
 const { pugCompile } = require("../modules/pug");
 const RouteTypes = require("../modules/RouteTypes");
 const Routes = require("../modules/Routes");
-const EndPoints = require("../modules/EndPoints");
+const EndPoints = require("../modules/editor_endpoints/EndPoints");
 const InitUsersEditor = require("../modules/editor_users/router");
+const InitEndPointsEditor = require("../modules/editor_endpoints/router");
 
 //app.use(express.json);
 
@@ -24,8 +25,8 @@ app.get("/", (req, res) => {
   res.send(obj);
 });
 
+//меню заказа билетов
 app.get("/order", async (req, res) => {
-  //let dataPromise = load();
   let routeTypes = await new RouteTypes().loadData();
   let endPoints = await new EndPoints().loadData();
   let startPoints = endPoints;
@@ -45,18 +46,10 @@ app.get("/order", async (req, res) => {
   res.send(obj);
 });
 
+//Инициализация роутеров
 InitUsersEditor(app);
+InitEndPointsEditor(app);
 
 app.listen(3000, () => {
   console.log("Started!");
 });
-/*
-  startPoints: [
-    { id: 1, name: "Moskow" },
-    { id: 4, name: "Saint Peter's burg" }
-  ],
-  endPoints: [
-    { id: 2, name: "Krasnoyarks" },
-    { id: 3, name: "Novosibirsk" }
-  ],
-  */

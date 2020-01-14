@@ -30,7 +30,7 @@ class Users extends DB {
         SET login=${usr.login}, 
         password=${usr.password}, 
         fio=${usr.fio} 
-        WHERE id=${parseInt(id)}`
+        WHERE id=${parseInt(usr.id)}`
       );
     }
   };
