@@ -1,5 +1,6 @@
-include ./head.pug
-include ./header.pug
+include ../../template/head.pug
+include ../../template/header.pug
+
 nav(class="purple")
   .nav-wrapper 
     a(class="brand-logo left") Ordering ticket
@@ -13,21 +14,21 @@ div
         select(name="stPoint", class="dropdown-trigger btn")
           option(value = "")
           each opt in data.startPoints
-            option(value=opt.ep_name) #{opt.ep_name}
+            option(value=opt.name) #{opt.name}
     .col.s4
       div
         h5 Пункт назначения
         select(name="epPoint", class="dropdown-trigger btn")
           option(value = "")
           each opt in data.endPoints
-            option(value = opt.ep_name) #{opt.ep_name}
+            option(value = opt.name) #{opt.name}
     .col.s4
       div
         h5 Способ передвижения
         select(name="tType", class="dropdown-trigger btn")
           option(value = "")
           each opt in data.routeTypes
-            option(value = opt.rot_type) #{opt.rot_type}
+            option(value = opt.name) #{opt.name}
 
 
 table
@@ -39,13 +40,13 @@ table
   tbody
     each route in data.found
       tr
-        td #{route.begin_place}
-        td #{route.end_place}
-        td #{route.start_time}
-        td #{route.arrive_time}
-        td #{route.route_type}
-        td #{route.route_cost}
+        td #{route.point_start}
+        td #{route.point_end}
+        td #{route.time_start}
+        td #{route.time_arrive}
+        td #{route.transport_type}
+        td #{route.cost}
         td
           button(class="waves-effect waves-light btn") Buy
 
-include ./foot.pug
+include ../../template/foot.pug

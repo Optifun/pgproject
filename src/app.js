@@ -5,13 +5,15 @@ const projectPath = path.resolve(__dirname, "..");
 const app = express();
 
 const { pugCompile } = require("../modules/pug");
-const Routes = require("../modules/Routes");
 
+const Routes = require("../modules/Routes");
 const TransportTypes = require("../modules/editor_transport/TransportType");
 const EndPoints = require("../modules/editor_endpoints/EndPoints");
+
 const InitUsersEditor = require("../modules/editor_users/router");
 const InitEndPointsEditor = require("../modules/editor_endpoints/router");
 const InitTransportEditor = require("../modules/editor_transport/router");
+const InitOrderTicket = require("../modules/order_ticket/router");
 
 //app.use(express.json);
 
@@ -27,31 +29,11 @@ app.get("/", (req, res) => {
   res.send(obj);
 });
 
-//меню заказа билетов
-app.get("/order", async (req, res) => {
-  let routeTypes = await new TransportTypes().getAllItems();
-  let endPoints = await new EndPoints().getAllItems();
-  let startPoints = endPoints;
-
-  let found = await new Routes().loadData();
-  let obj = pugCompile(
-    path.resolve(projectPath, "template", "order_ticket.pug"),
-    {
-      data: {
-        startPoints,
-        endPoints,
-        routeTypes,
-        found
-      }
-    }
-  );
-  res.send(obj);
-});
-
 //Инициализация роутеров
 InitUsersEditor(app);
 InitEndPointsEditor(app);
 InitTransportEditor(app);
+InitOrderTicket(app);
 
 app.listen(3000, () => {
   console.log("Started!");

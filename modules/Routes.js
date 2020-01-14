@@ -4,6 +4,13 @@ class Routes extends DB {
   constructor() {
     super();
   }
+
+  getAllItems = async args => {
+    await this.connect();
+    let qstring = `SELECT * FROM named_route`;
+    return await this.client.query(qstring);
+  };
+
   query = async args => {
     await this.connect();
     let qstring = `SELECT * FROM named_route`;
@@ -12,23 +19,23 @@ class Routes extends DB {
       qstring += " WHERE ";
 
       if (args.startPoint) {
-        qstring += `begin_point=${startPoint}`;
+        qstring += `point_begin=${startPoint}`;
         count--;
         qstring += count > 0 ? " AND " : "";
       }
 
       if (args.endPoint) {
-        qstring += `end_point=${startPoint}`;
+        qstring += `point_end=${startPoint}`;
         count--;
         qstring += count > 0 ? " AND " : "";
       }
       if (args.startTime) {
-        qstring += `start_time=${startPoint}`;
+        qstring += `time_start>=${startPoint}`;
         count--;
         qstring += count > 0 ? "AND " : "";
       }
       if (args.endTime) {
-        qstring += `arrive_time=${startPoint}`;
+        qstring += `time_arrive<=${startPoint}`;
       }
     }
     return await this.client.query(qstring);
