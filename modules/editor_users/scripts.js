@@ -1,5 +1,6 @@
 const Add = () => {};
 
 const Delete = id => {
-  console.log(id);
+  //нужно сделать
+  //fetch()
 };
