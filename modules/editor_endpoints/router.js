@@ -4,7 +4,7 @@ module.exports = app => {
   const EndPoints = require("./EndPoints");
   const { pugCompile } = require("../pug");
 
-  app.get("/editor_endpoints", async (req, res) => {
+  app.get("/editor_points", async (req, res) => {
     const data = await new EndPoints().getAllItems();
 
     res.send(
@@ -15,5 +15,23 @@ module.exports = app => {
         }
       )
     );
+  });
+
+  app.post("/editor_points/:typeOfFunct/:id", async (req, res) => {
+    const { id, typeOfFunct } = req.params;
+    const data = req.body;
+    let result = false;
+    switch (typeOfFunct) {
+      case "update":
+        result = await new EndPoints().update(id, data);
+        break;
+      case "delete":
+        result = await new EndPoints().delete(id);
+        break;
+      case "insert":
+        result = await new EndPoints().insert(data);
+        break;
+    }
+    res.send(result);
   });
 };

@@ -6,35 +6,28 @@ class EndPoints extends DB {
   }
   query = async args => {
     await this.connect();
-    let qstring = `SELECT * FROM public."points"`;
-    if (args && args.except) qstring += ` WHERE name=${args.except}`;
+    let qstring = `SELECT * FROM public.points`;
+    if (args && args.except) qstring += ` WHERE name='${args.except}'`;
     return await this.client.query(qstring);
   };
 
   delete = async id => {
     await this.connect();
-    if (id && parseInt(id > 0)) {
-      let qstring = `DELETE FROM public."points" WHERE id=${parseInt(id)}`;
-      return await this.client.query(qstring);
-    }
+    let qstring = `DELETE FROM public.points WHERE id=${id}`;
+    return await this.client.query(qstring);
   };
 
-  insert = async point => {
+  insert = async data => {
     await this.connect();
-    if (point) {
-      let qstring = `INSERT INTO public.points 
-      name VALUES(${point.name})`;
-    }
+    let qstring = `INSERT INTO public.points(name) VALUES('${data.name}')`;
+    console.log(qstring);
+    return await this.client.query(qstring);
   };
 
-  update = async point => {
+  update = async (id, data) => {
     await this.connect();
-    if (point) {
-      let qstring = `UPDATE public.points 
-      SET name=${usr.login} 
-      WHERE id=${parseInt(point.id)}`;
-      return await this.client.query(qstring);
-    }
+    let qstring = `UPDATE public.points SET name='${data.name}' WHERE id=${id}`;
+    return await this.client.query(qstring);
   };
 
   getAllItems = async args => {

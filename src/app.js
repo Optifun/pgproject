@@ -15,7 +15,7 @@ const InitEndPointsEditor = require("../modules/editor_endpoints/router");
 const InitTransportEditor = require("../modules/editor_transport/router");
 const InitOrderTicket = require("../modules/order_ticket/router");
 
-//app.use(express.json);
+app.use(express.json());
 
 app.use(
   "/static",

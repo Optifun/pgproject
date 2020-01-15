@@ -6,7 +6,6 @@ module.exports = app => {
 
   app.get("/editor_users", async (req, res) => {
     const data = await new Users().getAllItems();
-
     res.send(
       pugCompile(
         path.resolve(projectPath, "editor_users", "editor_users.pug"),
@@ -15,5 +14,10 @@ module.exports = app => {
         }
       )
     );
+  });
+
+  app.post("/editor_transport/:typeOfFunct/:id", async (req, res) => {
+    const { id } = req.params;
+    const data = await new Users().getAllItems();
   });
 };
