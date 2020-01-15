@@ -5,7 +5,7 @@ nav(class="purple")
     a(class="brand-logo left") Editor End Points
 
 .row(style="display: flex;")
-  .col.s6
+  .col.s8
     table
       thead
         tr
@@ -19,9 +19,12 @@ nav(class="purple")
               td
                 input(type="text", class="name", value=transport.name)
               td
-                select(name="tpType", class="dropdown-trigger btn", value=transport.type)
+                select(name="tpType", class="dropdown-trigger btn", value=transport.transport_type)
                   each opt in data.types
-                    option(value=opt.name) #{opt.name}
+                    if opt.name==transport.transport_type
+                      option(selected, value=opt.name) #{opt.name}
+                    else
+                      option(value=opt.name) #{opt.name}
               td
                 button(class="waves-effect waves-light btn", onClick="Delete("+transport.id+")") Удалить
 
@@ -32,10 +35,10 @@ nav(class="purple")
             input(type="text", class="tpType", value ="")
           td
             button(class="waves-effect waves-light btn", onClick="Add()") Добавить
-  .col.s2
+  .col.s1
     div
 
-  .col.s4
+  .col.s3
     table
       thead
         tr

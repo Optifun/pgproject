@@ -7,7 +7,7 @@ class Transport extends DB {
 
   getAllItems = async () => {
     await this.connect();
-    const dbResponse = await this.client.query(`SELECT * FROM transport`);
+    const dbResponse = await this.client.query(`SELECT * FROM named_transport`);
     console.log(dbResponse);
     return dbResponse.rows || null;
   };
