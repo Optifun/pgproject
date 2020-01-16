@@ -5,7 +5,8 @@ const Add = () => {
     //const fio = elem.children[2].firstElementChild.value;
     data = { name };
   });
-  PostData(0, "insert", data);
+  PostData(-1, "insert", data);
+  location.reload(1000);
 };
 
 const Save = id => {
@@ -20,6 +21,7 @@ const Save = id => {
 
 const Delete = id => {
   if (confirm("Вы уверены?")) {
+    document.querySelectorAll(`tbody #id_${id}`)[0].remove();
     PostData(id, "delete");
   }
 };
@@ -33,11 +35,13 @@ const PostData = (id, typeFunct, data = null) => {
     }
   })
     .then(data => data.json())
-    .then(({ error }) => {
-      if (error) alert("Error" + error);
+    .then(data => {
+      if (data.error) alert("Error" + data.error);
       else {
-        document.querySelector(`#row_${id}`).remove();
-        alert("Error" + error);
+        console.log(data);
+        return data.rows || null;
+        //document.querySelector(`#row_${id}`).remove();
+        //alert("Error" + error);
       }
     });
 };

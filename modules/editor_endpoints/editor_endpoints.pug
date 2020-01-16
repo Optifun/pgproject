@@ -1,29 +1,30 @@
 include ../../template/head.pug
 include ../../template/header.pug
+include point.pug
 nav(class="purple")
   .nav-wrapper 
     a(class="brand-logo left") Editor End Points
 
-
+mixin PointRow(point)
+  tr(id="id_"+point.id)
+    td
+      input(type="text", class="name", onchange="Save("+point.id+")", value=point.name)
+    td
+      button(class="waves-effect waves-light btn", onClick="Delete("+point.id+")") Удалить
 table
   thead
     tr
-      th "Название"
+      th Название
       th
-  tbody
+  tbody(id="points")
     each point in data
-      tr(id="id_"+point.id)
-        td
-          input(type="text", class="name", value=point.name)
-        td
-          button(class="waves-effect waves-light btn", onClick="Delete("+point.id+")") Удалить
+      +PointRow(point)
 
     tr(id="add")
       td
         input(type="text", class="name", value ="")
       td
         button(class="waves-effect waves-light btn", onClick="Add()") Добавить
-
 
 
 include ../../template/foot.pug

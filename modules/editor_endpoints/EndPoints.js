@@ -19,8 +19,7 @@ class EndPoints extends DB {
 
   insert = async data => {
     await this.connect();
-    let qstring = `INSERT INTO public.points(name) VALUES('${data.name}')`;
-    console.log(qstring);
+    let qstring = `INSERT INTO public.points(name) VALUES('${data.name}') RETURNING id;`;
     return await this.client.query(qstring);
   };
 
