@@ -16,8 +16,21 @@ module.exports = app => {
     );
   });
 
-  app.post("/editor_transport/:typeOfFunct/:id", async (req, res) => {
-    const { id } = req.params;
-    const data = await new Users().getAllItems();
+  app.post("/editor_users/:typeOfFunct/:id", async (req, res) => {
+    const { id, typeOfFunct } = req.params;
+    const data = req.body;
+    let result = false;
+    switch (typeOfFunct) {
+      case "update":
+        result = await new Users().update(id, data);
+        break;
+      case "delete":
+        result = await new Users().delete(id);
+        break;
+      case "insert":
+        result = await new Users().insert(data);
+        break;
+    }
+    res.send(result);
   });
 };

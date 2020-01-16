@@ -12,15 +12,15 @@ table
         th #{col}
       th
       th
-  tbody
+  tbody(id="users")
     each user in data
       tr(id="id_"+user.id)
         td
-          input(type="text", class="login", value=user.login)
+          input(type="text", class="login", onchange="Save("+user.id+")", value=user.login)
         td
-          input(type="text", class="password", value=user.password)
+          input(type="text", class="password", onchange="Save("+user.id+")", value=user.password)
         td
-          input(type="text", class="fio", value=user.fio)
+          input(type="text", class="fio", onchange="Save("+user.id+")", value=user.fio)
 
         td
           button(class="waves-effect waves-light btn", onClick="Delete("+user.id+")") Удалить

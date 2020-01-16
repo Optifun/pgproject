@@ -15,32 +15,31 @@ class Users extends DB {
 
   insert = async usr => {
     await this.connect();
-    const response = await this.client.query(
-      `INSERT INTO public.users 
-      fio, login, password 
-      VALUES(${usr.fio}, ${usr.login}, ${usr.password})`
+    return await this.client.query(
+      `INSERT INTO public.users(fio, login, password) 
+      VALUES('${usr.fio}', '${usr.login}', '${usr.password}') RETURNING id;`
     );
   };
 
-  update = async usr => {
+  update = async (id, usr) => {
     await this.connect();
+    console.log(usr);
     if (usr) {
-      let response = await this.client.query(
-        `UPDATE public.users 
-        SET login=${usr.login}, 
-        password=${usr.password}, 
-        fio=${usr.fio} 
-        WHERE id=${parseInt(usr.id)}`
+      return await this.client.query(
+        `UPDATE public.users SET 
+        login = '${usr.login}', 
+        password = '${usr.password}', 
+        fio = '${usr.fio}' 
+        WHERE id=${parseInt(id)}`
       );
     }
   };
 
-  deleteByID = async id => {
+  delete = async id => {
     await this.connect();
-    if (id && parseInt(id) > 0)
-      await this.client.query(
-        `DELETE FROM public.users WHERE id=${parseInt(id)}`
-      );
+    return await this.client.query(
+      `DELETE FROM public.users WHERE id=${parseInt(id)}`
+    );
   };
 }
 module.exports = Users;
