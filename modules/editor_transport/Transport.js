@@ -8,35 +8,29 @@ class Transport extends DB {
   getAllItems = async () => {
     await this.connect();
     const dbResponse = await this.client.query(`SELECT * FROM named_transport`);
-    console.log(dbResponse);
     return dbResponse.rows || null;
   };
 
   delete = async id => {
     await this.connect();
-    if (id && parseInt(id > 0)) {
-      let qstring = `DELETE FROM public.transport WHERE id=${parseInt(id)}`;
-      return await this.client.query(qstring);
-    }
+    let qstring = `DELETE FROM public.transport WHERE id=${parseInt(id)}`;
+    return await this.client.query(qstring);
   };
 
   insert = async transport => {
     await this.connect();
-    if (point) {
-      let qstring = `INSERT INTO public.transport 
-      name, transport_type  VALUES(${type.name}, ${type.transport_type})`;
-    }
+    let qstring = `INSERT INTO public.transport 
+      (name, transport_type_id)  VALUES('${transport.name}', ${transport.transport_type}) RETURNING id;`;
+    return await this.client.query(qstring);
   };
 
-  update = async transport => {
+  update = async (id, transport) => {
     await this.connect();
-    if (point) {
-      let qstring = `UPDATE public.transport 
-      SET name=${transport.login},
-      transport_type=${type.transport_type}
-      WHERE id=${parseInt(transport.id)}`;
-      return await this.client.query(qstring);
-    }
+    let qstring = `UPDATE public.transport 
+      SET name = '${transport.name}',
+      transport_type_id = ${transport.transport_type}
+      WHERE id = ${parseInt(id)}`;
+    return await this.client.query(qstring);
   };
 }
 

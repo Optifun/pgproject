@@ -17,29 +17,24 @@ class TransportType extends DB {
 
   delete = async id => {
     await this.connect();
-    if (id && parseInt(id > 0)) {
-      let qstring = `DELETE FROM public.transport_type 
+    let qstring = `DELETE FROM public.transport_type 
       WHERE id=${parseInt(id)}`;
-      return await this.client.query(qstring);
-    }
+    return await this.client.query(qstring);
   };
 
   insert = async type => {
     await this.connect();
-    if (point) {
-      let qstring = `INSERT INTO public.transport_type 
-      name VALUES(${transport.name})`;
-    }
+    let qstring = `INSERT INTO public.transport_type(name)
+       VALUES('${type.name}') RETURNING id;`;
+    return await this.client.query(qstring);
   };
 
-  update = async type => {
+  update = async (id, type) => {
     await this.connect();
-    if (point) {
-      let qstring = `UPDATE public.transport_type 
-      SET name=${type.login}
-      WHERE id=${parseInt(type.id)}`;
-      return await this.client.query(qstring);
-    }
+    let qstring = `UPDATE public.transport_type 
+      SET name='${type.name}'
+      WHERE id=${parseInt(id)}`;
+    return await this.client.query(qstring);
   };
 }
 module.exports = TransportType;

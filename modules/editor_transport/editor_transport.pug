@@ -12,29 +12,31 @@ nav(class="purple")
           th Название
           th Тип транспорта
           th 
-      tbody
+      tbody(id="transport")
         if (data.transport)
           each transport in data.transport
             tr(id="id_"+transport.id)
               td
-                input(type="text", class="name", value=transport.name)
+                input(type="text", class="name", onchange="SaveTransport("+transport.id+")", value=transport.name)
               td
-                select(name="tpType", class="dropdown-trigger btn", value=transport.transport_type)
+                select(name="tpType", class="dropdown-trigger btn", onchange="SaveTransport("+transport.id+")", value=transport.transport_type)
                   each opt in data.types
                     if opt.name==transport.transport_type
-                      option(selected, value=opt.name) #{opt.name}
+                      option(selected, value=opt.id) #{opt.name}
                     else
-                      option(value=opt.name) #{opt.name}
+                      option(value=opt.id) #{opt.name}
               td
-                button(class="waves-effect waves-light btn", onClick="Delete("+transport.id+")") Удалить
+                button(class="waves-effect waves-light btn", onClick="DeleteTransport("+transport.id+")") Удалить
 
         tr(id="add")
           td
             input(type="text", class="name", value ="")
           td
-            input(type="text", class="tpType", value ="")
+            select(name="tpType", class="dropdown-trigger btn")
+              each opt in data.types
+                option(value=opt.id) #{opt.name}
           td
-            button(class="waves-effect waves-light btn", onClick="Add()") Добавить
+            button(class="waves-effect waves-light btn", onClick="AddTransport()") Добавить
   .col.s1
     div
 
@@ -42,21 +44,21 @@ nav(class="purple")
     table
       thead
         tr
-          th "Тип транспорта"
+          th Тип транспорта
           th 
-      tbody
+      tbody(id="types")
         each ttype in data.types
           tr(id="id_"+ttype.id)
             td
-              input(type="text", class="name", value=ttype.name)
+              input(type="text", class="name", onchange="SaveType("+ttype.id+")", value=ttype.name)
             td
-              button(class="waves-effect waves-light btn", onClick="Delete("+ttype.id+")") Удалить
+              button(class="waves-effect waves-light btn", onClick="DeleteType("+ttype.id+")") Удалить
 
         tr(id="add")
           td
             input(type="text", class="name", value ="")
           td
-            button(class="waves-effect waves-light btn", onClick="Add()") Добавить
+            button(class="waves-effect waves-light btn", onClick="AddType()") Добавить
 
 
 
