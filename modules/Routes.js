@@ -7,9 +7,6 @@ const format = date => {
   return `${date.formatDate()} ${date.formatTime()}:00+7`;
 };
 
-Date.prototype.today = formatDate;
-Date.prototype.timeNow = formatTime;
-
 class Routes extends DB {
   constructor() {
     super();
