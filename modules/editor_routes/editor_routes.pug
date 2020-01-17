@@ -1,0 +1,80 @@
+include ../../template/head.pug
+include ../../template/header.pug
+nav(class="purple")
+  .nav-wrapper 
+    a(class="brand-logo left") Editor Users
+// min=data.date+"T"+data.time, 
+table
+  thead
+    tr
+      each col in ["Место отправления", "Мето назначения", "Дата отправления", "Дата прибытия", "Транспорт", "Стоимость за пассажира", "Количество мест"]
+        th #{col}
+      th
+      th
+  tbody(id="routes")
+    each route in data.routes
+      tr(id="id_"+route.id)
+        td
+          select(name="point_start", class="dropdown-trigger btn", onchange="Save("+route.id+")", value=route.point_start)
+            each opt in data.points
+              if opt.name==route.point_start
+                option(selected, value=opt.id) #{opt.name}
+              else
+                option(value=opt.id) #{opt.name}
+        td
+          select(name="point_end", class="dropdown-trigger btn", onchange="Save("+route.id+")", value=route.point_end)
+            each opt in data.points
+              if opt.name==route.point_end
+                option(selected, value=opt.id) #{opt.name}
+              else
+                option(value=opt.id) #{opt.name}
+        td
+          input(type="datetime-local", class="time_start", onchange="Save("+route.id+")", value = route.time_start, required)
+        td
+          input(type="datetime-local", class="time_arrive", onchange="Save("+route.id+")", value = route.time_arrive, required)
+        td
+          select(name="transport", class="dropdown-trigger btn", onchange="Save("+route.id+")", value = route.transport_name)
+            each opt in data.transport
+              if opt.name==route.transport_name
+                option(selected, value=opt.id) #{opt.name + ` (${opt.transport_type})`}
+              else
+                option(value=opt.id) #{opt.name+ ` (${opt.transport_type})`}
+        td
+          input(type="text", class="cost", onchange="Save("+route.id+")", value = route.cost, required, pattern="[0-9]{1-6}")
+        td
+          input(type="text", class="count_tickets", onchange="Save("+route.id+")", value = route.count_tickets, required, pattern="[0-9]{1-6}")
+        td
+          button(class="waves-effect waves-light btn", onClick="Delete("+route.id+")") Удалить
+
+
+
+
+    tr(id="add")
+      td
+        select(class="dropdown-trigger btn")
+          each opt in data.points
+            option(value=opt.id) #{opt.name}
+      td
+        select(class="dropdown-trigger btn")
+          each opt in data.points
+            option(value=opt.id) #{opt.name}
+      td
+        input(type="datetime-local", min='2010-01-01T00:00', class="time_start", required)
+      td
+        input(type="datetime-local", min='2010-01-01T00:00', class="time_arrive",  required)
+      td
+        select(class="dropdown-trigger btn")
+          each opt in data.transport
+            option(value=opt.id) #{opt.name+ ` (${opt.transport_type})`}
+      td
+        input(type="text", class="cost", required, pattern="[0-9]{1-6}")
+      td
+        input(type="text", class="count_tickets", required, pattern="[0-9]{1-6}")
+      td
+        button(class="waves-effect waves-light btn", onClick="Add()", type="submit") Добавить
+
+
+
+include ../../template/foot.pug
+script
+  include scripts.js
