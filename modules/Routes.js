@@ -1,4 +1,4 @@
-const DB = require("../modules/DB");
+const DB = require("./DB");
 const { formatDate, formatTime } = require("./DateFormates");
 
 const format = date => {
