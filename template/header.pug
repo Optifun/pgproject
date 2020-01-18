@@ -2,18 +2,21 @@ nav(class="green")
   .nav-wrapper 
     ul(id="nav-mobile", class="left")
       a(href="/") Home
-    if (auth)
+    if (!auth)
       ul(id="nav-mobile", class="left")
         a(href="/editor_users") Users
-    if (auth)
+    if (!auth)
       ul(id="nav-mobile", class="left")
         a(href="/editor_transport") Transports
-    if (auth)
+    if (!auth)
       ul(id="nav-mobile", class="left")
         a(href="/editor_points") Points
-    if (auth)    
+    if (!auth)    
       ul(id="nav-mobile", class="left")
         a(href="/editor_routes") Routes
+    if (!auth)    
+      ul(id="nav-mobile", class="right")
+        a(href="/quit") Quit
     ul(id="nav-mobile", class="right")
       a(href="/order") Tickets Shop
     a(class="brand-logo center") Ticket Service

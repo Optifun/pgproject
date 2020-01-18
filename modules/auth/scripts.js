@@ -1,29 +1,20 @@
-const Login = () => {
+const Login = path => {
   let inpts = document.querySelectorAll("input");
-  let data = {};
-  data.user = { login: inpts[0].value, password: inpts[1].value };
-  console.log(data);
-  PostData(data);
+  const user = { login: inpts[0].value, password: inpts[1].value };
+  console.log(user);
+  PostData(user, path);
 };
 
-const PostData = data => {
-  fetch(`/auth`, {
+const PostData = (data, path) => {
+  fetch(`/${path}`, {
     method: "POST",
     body: data ? JSON.stringify(data) : [],
     headers: {
       "Content-Type": "application/json"
     }
   })
-    .then(data => data.json())
+    .then(data => data.text())
     .then(data => {
-      if (data.error) alert("Error" + data.error);
-      else {
-        console.log(data);
-        if (data.login) alert("Вход выполнен");
-        else alert("Не удалось войти");
-        return data || null;
-        //document.querySelector(`#row_${id}`).remove();
-        //alert("Error" + error);
-      }
+      document.body.innerHTML = data;
     });
 };

@@ -5,7 +5,7 @@ nav(class="purple")
     a(class="brand-logo left") Вход
 
 .center.container
-  h5 Log In
+  h5 Log In #{hello}
   .row(style="display: flex; align-items: left;")
     .col.s4
     .col.m4
@@ -15,10 +15,9 @@ nav(class="purple")
       .left-align
         h6 Password
         input(type="password", name="password", required)
-      button(class="waves-effect waves-red btn-large", onclick="Login()") Log In
-      span(style="margin:40px;") OR
-      
+      button(class="waves-effect waves-red btn-large", onclick="Login('auth')") Log In      
       a(class="waves-effect waves-red btn-large" href="./register") Register
+      h5 #{errorr}
     .col.s4
      
 
