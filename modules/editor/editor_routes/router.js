@@ -1,13 +1,12 @@
 module.exports = app => {
-  const moment = require("moment");
   const path = require("path");
   const projectPath = path.resolve(__dirname, "..");
-  const Routes = require("../Routes");
+  const Routes = require("../../Routes");
   const Points = require("../editor_endpoints/EndPoints");
   const Transport = require("../editor_transport/Transport");
   const TransportType = require("../editor_transport/TransportType");
-  const { pugCompile } = require("../pug");
-  const { formatDate, formatTime } = require("../DateFormates");
+  const { pugCompile } = require("../../pug");
+  const { formatDate, formatTime } = require("../../DateFormates");
 
   Date.prototype.today = formatDate;
   Date.prototype.timeNow = formatTime;

@@ -2,7 +2,7 @@ module.exports = app => {
   const path = require("path");
   const projectPath = path.resolve(__dirname, "..");
   const EndPoints = require("./EndPoints");
-  const { pugCompile } = require("../pug");
+  const { pugCompile } = require("../../pug");
 
   app.get("/editor_points", async (req, res) => {
     const data = await new EndPoints().getAllItems();

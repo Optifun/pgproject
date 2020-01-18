@@ -2,8 +2,8 @@ module.exports = app => {
   const path = require("path");
   const projectPath = path.resolve(__dirname, "..");
   const Routes = require("../Routes");
-  const TransportTypes = require("../editor_transport/TransportType");
-  const EndPoints = require("../editor_endpoints/EndPoints");
+  const TransportTypes = require("../editor/editor_transport/TransportType");
+  const EndPoints = require("../editor/editor_endpoints/EndPoints");
 
   const { pugCompile } = require("../pug");
   const { formatDate, formatTime } = require("../DateFormates");

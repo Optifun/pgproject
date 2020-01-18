@@ -3,7 +3,7 @@ module.exports = app => {
   const projectPath = path.resolve(__dirname, "..");
   const Transport = require("./Transport");
   const TransportType = require("./TransportType");
-  const { pugCompile } = require("../pug");
+  const { pugCompile } = require("../../pug");
 
   app.get("/editor_transport", async (req, res) => {
     const transport = await new Transport().getAllItems();

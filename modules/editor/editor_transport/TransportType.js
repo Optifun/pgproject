@@ -1,4 +1,4 @@
-const DB = require("../DB");
+const DB = require("../../DB");
 
 class TransportType extends DB {
   constructor() {
