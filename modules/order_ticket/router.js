@@ -2,6 +2,7 @@ module.exports = app => {
   const path = require("path");
   const projectPath = path.resolve(__dirname, "..");
   const Routes = require("../Routes");
+  const Tickets = require("./Tickets");
   const TransportTypes = require("../editor/editor_transport/TransportType");
   const EndPoints = require("../editor/editor_endpoints/EndPoints");
 
@@ -37,5 +38,20 @@ module.exports = app => {
       }
     );
     res.send(obj);
+  });
+
+  app.post("/order/:typeOfFunct/", async (req, res) => {
+    const { typeOfFunct } = req.params;
+    console.log(typeOfFunct);
+    const data = req.body;
+    data.user_id = req.userData.id;
+    console.log(data);
+    let result = false;
+    switch (typeOfFunct) {
+      case "insert":
+        result = await new Tickets().insert(data);
+        break;
+    }
+    res.send(result);
   });
 };

@@ -39,7 +39,7 @@ table
       th Купить
   tbody
     each route in data.found
-      tr
+      tr(id="id_"+route.id)
         td #{route.point_start}
         td #{route.point_end}
         td 
@@ -49,6 +49,8 @@ table
         td #{route.transport_type}
         td #{route.cost}
         td
-          button(class="waves-effect waves-light btn") Buy
+          button(class="waves-effect waves-light btn", onclick="Buy("+route.id+")") Buy
 
 include ../../template/foot.pug
+script
+  include scripts.js
