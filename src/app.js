@@ -5,14 +5,8 @@ const projectPath = path.resolve(__dirname, "..");
 const app = express();
 const Auth = require("../modules/auth/Auth");
 // const session = require("express-session");
-// const passport = require("passport");
 const { pugCompile } = require("../modules/pug");
 
-const Routes = require("../modules/Routes");
-const TransportTypes = require("../modules/editor/editor_transport/TransportType");
-const EndPoints = require("../modules/editor/editor_endpoints/EndPoints");
-
-const Users = require("../modules/Users");
 const InitUsersEditor = require("../modules/editor/editor_users/router");
 const InitEndPointsEditor = require("../modules/editor/editor_endpoints/router");
 const InitTransportEditor = require("../modules/editor/editor_transport/router");
@@ -20,11 +14,11 @@ const InitRoutesEditor = require("../modules/editor/editor_routes/router");
 const InitOrderTicket = require("../modules/order_ticket/router");
 const InitAuthentification = require("../modules/auth/router");
 const cookkieParser = require("cookie-parser");
-let users = [];
-// let store = new session.MemoryStore();
 
 app.set("trust proxy", 1);
+
 app.use(express.json());
+
 app.use(
   "/static",
   express.static(path.resolve(projectPath, "template", "public", "static"))
@@ -53,37 +47,29 @@ app.use(
 //   next();
 // });
 app.use(cookkieParser());
-const noAuthRequests = ["/auth", "/register"];
 app.use((req, res, next) => {
-  // proverka auth
-  if (noAuthRequests.some(item => item === req.path)) {
+  //если пользователь на транице авторизации или регистрации то пропускаем
+  if (["/auth", "/register"].some(item => item === req.path)) {
     next();
     return;
   }
+  //получаем токен сессии
   const { token } = req.cookies;
   if (!token) {
     res.redirect("/auth");
     return;
   }
+  //если по токену не прошла авторизация, то редирект
   const userData = Auth.checkToken(token);
   if (!userData) {
     res.redirect("/auth");
     return;
   }
+  //иначе обновляем токен и отдаём данные пользователю
   req.userData = userData;
+  console.log(userData);
   const newToken = Auth.updateOrCreateToken(userData);
-  console.log("fwef gw");
   Auth.saveToken(res, newToken);
-  next();
-});
-app.use((req, res, next) => {
-  if (!req.userData) {
-    next();
-    return;
-  }
-  if (req.userData.perms < 5) {
-    res.redirect("/");
-  }
   next();
 });
 

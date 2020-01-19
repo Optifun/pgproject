@@ -1,22 +1,22 @@
 nav(class="green")
   .nav-wrapper 
     ul(id="nav-mobile", class="left")
-      a(href="/") Home
+      a(href="/") На главную
     if (!auth)
       ul(id="nav-mobile", class="left")
-        a(href="/editor_users") Users
+        a(href="/editor_users") Пользователи
     if (!auth)
       ul(id="nav-mobile", class="left")
-        a(href="/editor_transport") Transports
+        a(href="/editor_transport") Транспорт
     if (!auth)
       ul(id="nav-mobile", class="left")
-        a(href="/editor_points") Points
+        a(href="/editor_points") Города
     if (!auth)    
       ul(id="nav-mobile", class="left")
-        a(href="/editor_routes") Routes
+        a(href="/editor_routes") Маршруты
     if (!auth)    
       ul(id="nav-mobile", class="right")
-        a(href="/quit") Quit
+        a(href="/quit") Выход
     ul(id="nav-mobile", class="right")
-      a(href="/order") Tickets Shop
+      a(href="/order") Покупка билетов
     a(class="brand-logo center") Ticket Service

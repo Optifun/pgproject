@@ -9,7 +9,7 @@ class Auth extends DB {
   }
   getUser = async () => {
     const dbResponse = await this.client.query(
-      `SELECT * FROM users WHERE login='${this.login}' 
+      `SELECT id, login, fio FROM users WHERE login='${this.login}' 
                             AND password='${this.password}'`
     );
 
@@ -20,14 +20,14 @@ class Auth extends DB {
   addUser = async () => {
     await this.connect();
     try {
-      const dbResponseTestUser = await this.client.query(
+      const RegistredUser = await this.client.query(
         `SELECT * FROM users WHERE login='${this.login}'`
       );
-      if (dbResponseTestUser.rows === null) {
+      if (RegistredUser.rows === null) {
         const dbResponse = await this.client.query(
           `INSERT INTO public.users(
-                    login, password)
-                    VALUES ('${this.login}', '${this.password}');`
+            login, password)
+            VALUES ('${this.login}', '${this.password}');`
         );
       } else {
         return false;
@@ -69,6 +69,7 @@ class Auth extends DB {
 
     return jwt.sign(newData, secret, { expiresIn: 60 * 60 * 3 });
   };
+
   static saveToken = (res, token) => {
     res.cookie("token", token);
   };

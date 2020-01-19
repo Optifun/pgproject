@@ -19,25 +19,28 @@ module.exports = app => {
     console.log("POST AUTH");
     console.log(login, password);
     if (isNotEmpty(login, password)) {
-      let obj = pugCompile(path.resolve(projectPath, "auth", "auth.pug"), {
-        errorr: "Ошибка введённых данных",
-        auth: true
-      });
-      res.send(obj);
+      res.send(
+        pugCompile(path.resolve(projectPath, "auth", "auth.pug"), {
+          errorr: "Введены не полные данные",
+          auth: true
+        })
+      );
       return;
     }
+    //при успешной авторизации редирект на главную
     const authResult = await new Auth(login, password).auth(res);
     if (authResult) {
       console.log("redirect");
       res.redirect("/");
       return;
     }
-    let obj = pugCompile(path.resolve(projectPath, "auth", "auth.pug"), {
-      errorr: "Ошибка авторизации",
-      auth: true,
-      hello: "Hello"
-    });
-    res.send(obj);
+    res.send(
+      pugCompile(path.resolve(projectPath, "auth", "auth.pug"), {
+        errorr: "Ошибка авторизации",
+        auth: true,
+        hello: "Hello"
+      })
+    );
     return;
   });
 
@@ -45,20 +48,22 @@ module.exports = app => {
   app.post("/register", async (req, res) => {
     const { login, password } = req.body;
     if (isNotEmpty(login, password)) {
-      let obj = pugCompile(path.resolve(projectPath, "auth", "register.pug"), {
-        errorr: "Ошибка введённых данных",
-        auth: true
-      });
-      res.send(obj);
+      res.send(
+        pugCompile(path.resolve(projectPath, "auth", "register.pug"), {
+          errorr: "Введены не полные данные",
+          auth: true
+        })
+      );
       return;
     }
     const result = await new Auth(login, password).addUser();
     if (!result) {
-      let obj = pugCompile(path.resolve(projectPath, "auth", "register.pug"), {
-        errorr: "Ошибка регистрации",
-        auth: true
-      });
-      res.send(obj);
+      res.send(
+        pugCompile(path.resolve(projectPath, "auth", "register.pug"), {
+          errorr: "Ошибка регистрации",
+          auth: true
+        })
+      );
     } else {
       const authResult = await new Auth(login, password).auth(res);
       if (authResult) {
@@ -68,6 +73,7 @@ module.exports = app => {
       }
     }
   });
+
   app.get("/auth", async (req, res) => {
     console.log("GET AUTH");
     res.send(
@@ -77,6 +83,7 @@ module.exports = app => {
       })
     );
   });
+
   app.get("/register", async (req, res) => {
     res.send(
       pugCompile(path.resolve(projectPath, "auth", "register.pug"), {
