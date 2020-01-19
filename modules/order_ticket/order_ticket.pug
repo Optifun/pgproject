@@ -3,7 +3,7 @@ include ../../template/header.pug
 
 nav(class="purple")
   .nav-wrapper 
-    a(class="brand-logo left") Ordering ticket
+    a(class="brand-logo left") Покупка билетов
 
 div
   .row(style="display: flex;align-items: center;")
@@ -36,7 +36,7 @@ table
     tr
       each col in ["Место отправления", "Мето назначения", "Дата отправления", "Дата прибытия", "Способ передвижения","Стоимость за пассажира"]
         th #{col}
-      th Купить
+      th
   tbody
     each route in data.found
       tr(id="id_"+route.id)
@@ -49,7 +49,7 @@ table
         td #{route.transport_type}
         td #{route.cost}
         td
-          button(class="waves-effect waves-light btn", onclick="Buy("+route.id+")") Buy
+          button(class="waves-effect waves-light btn", onclick="Buy("+route.id+")") Купить
 
 include ../../template/foot.pug
 script

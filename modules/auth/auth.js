@@ -1,6 +1,6 @@
 const DB = require("../DB");
 const jwt = require("jsonwebtoken");
-const secret = "123";
+const secret = "ticket345";
 class Auth extends DB {
   constructor(login, password) {
     super();

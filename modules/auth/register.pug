@@ -2,21 +2,21 @@ include ../../template/head.pug
 include ../../template/header.pug
 nav(class="purple")
   .nav-wrapper 
-    a(class="brand-logo left") Вход
+    a(class="brand-logo left") Необходимо авторизоваться
 
 .center.container
-  h5 Log In
+  h5 Регистрация
   .row(style="display: flex; align-items: left;")
     .col.s4
     .col.m4
       .left-align
-        h6 Login
+        h6 Логин
         input(type="text", name="login", required)
       .left-align
-        h6 Password
+        h6 Пароль
         input(type="password", name="password", required)
-      button(class="waves-effect waves-red btn-large", onclick="Login('register')") Register      
-      a(class="waves-effect waves-red btn-large" href="./auth") Log In
+      button(class="waves-effect waves-red btn-large", onclick="Login('register')") Зарегистрироваться
+      a(class="waves-effect waves-red btn-large" href="./auth") Страница входа
       h5 #{errorr}
     .col.s4
      

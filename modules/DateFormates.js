@@ -1,5 +1,4 @@
 const formatDate = function() {
-  console.log(this);
   return (
     this.getFullYear() +
     "-" +

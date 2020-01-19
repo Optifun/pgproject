@@ -75,7 +75,11 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
   console.log(req.body);
-  res.send(pugCompile(path.resolve(projectPath, "template", "index.pug"), {}));
+  res.send(
+    pugCompile(path.resolve(projectPath, "template", "index.pug"), {
+      user: req.userData
+    })
+  );
 });
 
 //Инициализация роутеров
