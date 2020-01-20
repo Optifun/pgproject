@@ -23,7 +23,7 @@ class Auth extends DB {
       const RegistredUser = await this.client.query(
         `SELECT * FROM users WHERE login='${this.login}'`
       );
-      if (RegistredUser.rows === null) {
+      if (RegistredUser.rows.length == 0) {
         const dbResponse = await this.client.query(
           `INSERT INTO public.users(
             login, password)
