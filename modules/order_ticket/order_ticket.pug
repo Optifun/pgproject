@@ -5,30 +5,40 @@ nav(class="purple")
   .nav-wrapper 
     a(class="brand-logo left") Покупка билетов
 
+div(id="options", class = filter.options)
 div
   .row(style="display: flex;align-items: center;")
 
     .col.s4
       div
         h5 Пункт отправления
-        select(name="stPoint", class="dropdown-trigger btn")
+        select(id="point_start", class="dropdown-trigger btn", onchange="Filter('point_start', this)")
           option(value = "")
           each opt in data.startPoints
-            option(value=opt.name) #{opt.name}
+            if (filter.point_start && filter.point_start==opt.id)
+              option(value=opt.id selected) #{opt.name}
+            else
+              option(value=opt.id ) #{opt.name}
     .col.s4
       div
         h5 Пункт назначения
-        select(name="epPoint", class="dropdown-trigger btn")
+        select(id="point_end", class="dropdown-trigger btn", onchange="Filter('point_end', this)")
           option(value = "")
           each opt in data.endPoints
-            option(value = opt.name) #{opt.name}
+            if (filter.point_end && filter.point_end==opt.id)
+              option(value = opt.id selected) #{opt.name}
+            else
+              option(value = opt.id) #{opt.name}
     .col.s4
       div
         h5 Способ передвижения
-        select(name="tType", class="dropdown-trigger btn")
+        select(id="transport" class="dropdown-trigger btn", onchange="Filter('transport', this)" )
           option(value = "")
           each opt in data.routeTypes
-            option(value = opt.name) #{opt.name}
+            if (filter.transport && filter.transport==opt.id)
+              option(value = opt.id selected) #{opt.name}
+            else
+              option(value = opt.id) #{opt.name}
 
 
 table

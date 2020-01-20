@@ -16,28 +16,43 @@ module.exports = app => {
   };
 
   //меню заказа билетов
-  app.get("/order", async (req, res) => {
+  app.get("/order/", async (req, res) => {
     let routeTypes = await new TransportTypes().getAllItems();
     let endPoints = await new EndPoints().getAllItems();
-    let found = await new Routes().loadData();
+    let startPoints = endPoints;
+    let filter = req.query;
+    let entries = Object.entries(filter);
+    filter = {};
+    console.log(entries);
+    let options = "";
+    if (entries.length > 0) {
+      entries.forEach((val, index) => {
+        if (val[1] != "") filter[val[0]] = parseInt(val[1]);
+      });
+      options = Object.keys(filter).reduce((str, val) => {
+        return str + val + " ";
+      }, "");
+    }
+    let found = await new Routes().loadData(filter);
     found.forEach((value, index) => {
       value.time_start = Format(new Date(value.time_start));
       value.time_arrive = Format(new Date(value.time_arrive));
     });
-    let startPoints = endPoints;
-    console.log(routeTypes);
-    let obj = pugCompile(
-      path.resolve(projectPath, "order_ticket", "order_ticket.pug"),
-      {
-        data: {
-          startPoints,
-          endPoints,
-          routeTypes,
-          found
+    console.log(filter);
+    res.send(
+      pugCompile(
+        path.resolve(projectPath, "order_ticket", "order_ticket.pug"),
+        {
+          data: {
+            startPoints,
+            endPoints,
+            routeTypes,
+            found
+          },
+          filter: { ...filter, options }
         }
-      }
+      )
     );
-    res.send(obj);
   });
 
   app.post("/order/:typeOfFunct/", async (req, res) => {

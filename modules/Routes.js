@@ -56,30 +56,36 @@ class Routes extends DB {
   query = async args => {
     await this.connect();
     let qstring = `SELECT * FROM named_route`;
-    if (args && args.length > 0) {
-      let count = args.length;
+    if (JSON.stringify(args) != "{}") {
+      let count = Object.keys(args).length;
       qstring += " WHERE ";
 
-      if (args.startPoint) {
-        qstring += `point_begin=${startPoint}`;
+      if (args.point_start) {
+        qstring += `point_start_id=${args.point_start}`;
         count--;
         qstring += count > 0 ? " AND " : "";
       }
 
-      if (args.endPoint) {
-        qstring += `point_end=${startPoint}`;
+      if (args.point_end) {
+        qstring += `point_end_id=${args.point_end}`;
         count--;
         qstring += count > 0 ? " AND " : "";
       }
-      if (args.startTime) {
-        qstring += `time_start>=${startPoint}`;
+      if (args.transport) {
+        qstring += `transport_type_id=${args.transport}`;
+      }
+      /*
+      if (args.time_start) {
+        qstring += `time_start>=${args.time_start}`;
         count--;
         qstring += count > 0 ? "AND " : "";
       }
-      if (args.endTime) {
-        qstring += `time_arrive<=${startPoint}`;
+      if (args.time_arrive) {
+        qstring += `time_arrive<=${args.time_arrive}`;
       }
+      */
     }
+    console.log(qstring);
     return await this.client.query(qstring);
   };
 
